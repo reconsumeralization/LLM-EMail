@@ -3,8 +3,7 @@
 let
   python = pkgs.python38;
 in
-{
-  buildInputs = [
+buildInputs = [
     pkgs.gcc
     pkgs.libffi
     pkgs.zlib
@@ -16,6 +15,16 @@ in
     pkgs.python38Packages.pinecone
     pkgs.python38Packages.mailbox
   ];
+SHELL = "${python}/bin/python";
 
-  SHELL = "${python}/bin/python";
-}
+nix-build email_agent.nix
+
+all:
+    make email_agent
+    make agent_manager
+
+email_agent:
+    nix-build email_agent.nix
+
+agent_manager:
+    nix-build agent_manager.nix
