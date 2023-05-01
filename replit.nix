@@ -1,20 +1,38 @@
-{ pkgs }: {
-  deps = [
-    pkgs.python310Full
-    pkgs.replitPackages.stderred
+{ pkgs ? import <nixpkgs> {} }:
+
+pkgs.mkShell {
+  name = "myenv";
+  buildInputs = with pkgs.python39Packages; [
+    beautifulsoup4
+    colorama
+    distro
+    duckduckgo-search
+    gTTS
+    google-api-python-client
+    openai
+    orjson
+    pinecone-client
+    playsound
+    Pillow
+    pyyaml
+    readability-lxml
+    redis
+    requests
+    selenium
+    spacy
+    spacy_models.en_core_web_sm
+    tiktoken
+    tweepy
+    webdriver-manager
+    click
+    jsonschema
+    pytest
+    pytest-asyncio
+    pytest-benchmark
+    pytest-cov
+    pytest-integration
+    pytest-mock
+    vcrpy
+    pytest-vcr
   ];
-  env = {
-    PYTHON_LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
-      # Needed for pandas / numpy
-      pkgs.stdenv.cc.cc.lib
-      pkgs.zlib
-      # Needed for pygame
-      pkgs.glib
-      # Needed for matplotlib
-      pkgs.xorg.libX11
-    ];
-    PYTHONBIN = "${pkgs.python310Full}/bin/python3.10";
-    LANG = "en_US.UTF-8";
-    STDERREDBIN = "${pkgs.replitPackages.stderred}/bin/stderred";
-  };
 }
