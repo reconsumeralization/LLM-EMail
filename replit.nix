@@ -1,38 +1,21 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs }: 
 
-pkgs.mkShell {
-  name = "myenv";
-  buildInputs = with pkgs.python39Packages; [
-    beautifulsoup4
-    colorama
-    distro
-    duckduckgo-search
-    gTTS
-    google-api-python-client
-    openai
-    orjson
-    pinecone-client
-    playsound
-    Pillow
-    pyyaml
-    readability-lxml
-    redis
-    requests
-    selenium
-    spacy
-    spacy_models.en_core_web_sm
-    tiktoken
-    tweepy
-    webdriver-manager
-    click
-    jsonschema
-    pytest
-    pytest-asyncio
-    pytest-benchmark
-    pytest-cov
-    pytest-integration
-    pytest-mock
-    vcrpy
-    pytest-vcr
+let
+  python = pkgs.python38;
+in
+{
+  buildInputs = [
+    pkgs.gcc
+    pkgs.libffi
+    pkgs.zlib
+    pkgs.openssl
+    python
+    pkgs.python38Packages.pytorch
+    pkgs.python38Packages.spacy
+    pkgs.python38Packages.transformers
+    pkgs.python38Packages.pinecone
+    pkgs.python38Packages.mailbox
   ];
+
+  SHELL = "${python}/bin/python";
 }
